@@ -1,1 +1,22 @@
-{}
+{
+  "api": {
+    "mambaGraphQl": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 90,
+              "apiKeyExpirationDate": "2022-12-07T11:03:22.566Z",
+              "description": "test-api"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  }
+}
