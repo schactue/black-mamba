@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {useState} from "react";
 import { styled, useTheme } from '@mui/material/styles';
 import {AppBar, Box, CssBaseline, Toolbar, useMediaQuery} from '@mui/material';

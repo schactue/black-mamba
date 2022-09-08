@@ -1,6 +1,7 @@
 import * as React from "react";
 import MainLayout from "../layout/MainLayout";
 import ProjectList from "../views/projectList";
+import {ProjectDetails} from "../views/projectList/projectDetails";
 
 const MainRoutes = {
     path: '/',
@@ -9,6 +10,10 @@ const MainRoutes = {
         {
             path: '/',
             element: <ProjectList />
+        },
+        {
+            path: '/project/:id',
+            element: <ProjectDetails />
         },
     ]
 };

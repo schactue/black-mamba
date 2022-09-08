@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Button, Grid} from "@mui/material";
+import React from "react";
+import {Box, Button, Grid} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,42 +9,42 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {gridSpacing} from "../../store/constant";
+import {useState} from "react";
 import {ProjectForm} from "./components/project.form";
-import {useNavigate} from "react-router-dom";
+import {UserForm} from "./components/user.form";
+
+const ProjectDetails = () => {
+    const [userList, setUserList] = useState([{first_name: 'max', last_name: 'muster', id: '1'}]);
+    const [openUserForm, setOpenUserForm] = useState(false);
+    const [project, setProject] = useState({name: 'project-1', description: 'lorem', id: '1'})
 
 
-const ProjectList = () => {
-
-    const [projectList, setProjectList] = useState([{name: 'project-1', description: 'lorem', id:'1'}, {
-        name: 'project-2',
-        description: 'lorem',
-        id:'2'
-    }]);
-    const [openProjectForm, setOpenProjectForm] = useState(false);
-    let navigate = useNavigate();
-
-
-    const saveProject = (formData: any) => {
+    const saveUser = (formData: any) => {
         // console.log('formData: ', formData)
-        setProjectList([...projectList, {...formData, id:Math.floor(Math.random() * 10)}])
-        setOpenProjectForm(false)
+        setUserList([...userList, {...formData, id: Math.floor(Math.random() * 10)}])
+        setOpenUserForm(false)
     }
 
     const handleClickOnRow = (event, row) => {
         console.log(row, event)
-        navigate(`project/${row.id}`);
     }
 
     return <Grid container spacing={gridSpacing}>
 
         <Grid item xs={12}>
-           <h2>Projects</h2>
+            <h1>Project: <span>{project?.name}</span></h1>
         </Grid>
-        <Grid item xs={12}>
-            <Button variant="outlined" startIcon={<AddIcon/>} onClick={() => setOpenProjectForm(true)}>
+
+
+        <Grid item xs={6}>
+           <span style={{fontSize:28}}>Users</span>
+        </Grid>
+        <Grid item xs={6} style={{textAlign:'right'}}>
+            <Button variant="outlined" startIcon={<AddIcon/>} onClick={() => setOpenUserForm(true)}>
                 Add
             </Button>
         </Grid>
+
         <Grid item xs={12}>
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
@@ -55,17 +55,17 @@ const ProjectList = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {projectList.map((row) => (
+                        {userList.map((row) => (
                             <TableRow
-                                key={row.name}
+                                key={row.id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                 hover
                                 onClick={(event) => handleClickOnRow(event, row)}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.first_name}
                                 </TableCell>
-                                <TableCell>{row.description}</TableCell>
+                                <TableCell>{row.last_name}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -73,9 +73,8 @@ const ProjectList = () => {
             </TableContainer>
 
         </Grid>
-        <ProjectForm onSave={saveProject} onClose={() => setOpenProjectForm(false)} open={openProjectForm}/>
+        <UserForm onSave={saveUser} onClose={() => setOpenUserForm(false)} open={openUserForm}/>
     </Grid>
 }
 
-
-export default ProjectList;
+export {ProjectDetails}

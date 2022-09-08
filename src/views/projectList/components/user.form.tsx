@@ -4,19 +4,20 @@ import {useTheme} from '@mui/material/styles';
 import {useForm, Controller} from "react-hook-form";
 
 
-interface IProjectForm {
+interface IUserForm {
     open: boolean;
     onClose: () => void;
     onSave: (data: any) => void;
 }
 
-const ProjectForm = (props: IProjectForm) => {
+
+const UserForm = (props:IUserForm) => {
     const theme = useTheme();
     const {open, onClose, onSave} = props;
     const {register, handleSubmit, watch, control, formState: {errors}} = useForm({
         defaultValues: {
-            name: '',
-            description: ''
+            first_name: '',
+            last_name: ''
         }
     });
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -30,23 +31,22 @@ const ProjectForm = (props: IProjectForm) => {
     return <div>
 
         <Dialog open={open} onClose={onClose} fullScreen={fullScreen}>
-            <DialogTitle>New Project</DialogTitle>
+            <DialogTitle>New User</DialogTitle>
             <DialogContent>
                 <Grid container={true} spacing={4} style={{marginTop: 25}}>
                     <Grid item={true} xs={12}>
                         <Controller
-                            name="name"
+                            name="first_name"
                             control={control}
-                            render={({field}) => <TextField {...field} label={'Name'}/>}
+                            render={({field}) => <TextField {...field} label={'First Name'}/>}
                         />
                     </Grid>
                     <Grid item={true} xs={12}>
                         <Controller
-                            name="description"
+                            name="last_name"
                             control={control}
-                            render={({field}) => <TextField {...field} label={'description'}
-                                                            multiline
-                                                            rows={4}/>}
+                            render={({field}) => <TextField {...field} label={'Last Name'}
+                                                           />}
                         />
                     </Grid>
                 </Grid>
@@ -61,4 +61,4 @@ const ProjectForm = (props: IProjectForm) => {
     </div>
 }
 
-export {ProjectForm}
+export {UserForm}
