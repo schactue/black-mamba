@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blackmambaapp-dev-124745-authRole",
+      "UnauthRoleArn": "arn:aws:iam::182780795097:role/amplify-blackmambaapp-dev-124745-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::182780795097:role/amplify-blackmambaapp-dev-124745-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-blackmambaapp-dev-124745-deployment",
+      "UnauthRoleName": "amplify-blackmambaapp-dev-124745-unauthRole",
+      "StackName": "amplify-blackmambaapp-dev-124745",
+      "StackId": "arn:aws:cloudformation:eu-central-1:182780795097:stack/amplify-blackmambaapp-dev-124745/ac9b4c80-2f63-11ed-a180-0ac5efc14e36",
+      "AmplifyAppId": "ds3h3rm5yhgpi"
+    }
+  }
+}
