@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Grid} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Table from '@mui/material/Table';
@@ -10,11 +10,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {gridSpacing} from "../../store/constant";
 import {UserForm} from "./forms/user.form";
+import {API} from "aws-amplify";
+import * as queries from "../../graphql/queries";
+import {GetProjectQuery, Project} from "../../API";
+import {useParams} from "react-router-dom";
 
 const ProjectDetails = () => {
+
+    const params = useParams();
     const [userList, setUserList] = useState([{first_name: 'max', last_name: 'muster', id: '1'}]);
     const [openUserForm, setOpenUserForm] = useState(false);
-    const [project, setProject] = useState({name: 'project-1', description: 'lorem', id: '1'})
+    const [project, setProject] = useState<Project>(null)
 
 
     const saveUser = (formData: any) => {
@@ -27,10 +33,24 @@ const ProjectDetails = () => {
         console.log(row, event)
     }
 
+    const fetchProject = () => {
+        (
+            API.graphql({query: queries.getProject,  variables: { id: params.id }}) as Promise<{ data: GetProjectQuery }>
+        ).then((data: { data: GetProjectQuery  }) => {
+            console.log(data)
+             setProject(data.data.getProject)
+        });
+    }
+
+    useEffect(() => {
+        fetchProject()
+    },[params])
+
+
     return <Grid container spacing={gridSpacing}>
 
         <Grid item xs={12}>
-            <h1>Project: <span>{project?.name}</span></h1>
+            <h1>Project: <span>{project && project.name?project.name:''}</span></h1>
         </Grid>
 
 

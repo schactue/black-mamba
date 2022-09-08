@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Grid} from "@mui/material";
+import {API} from 'aws-amplify';
+import {useNavigate} from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,35 +12,68 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {gridSpacing} from "../../store/constant";
 import {ProjectForm} from "./forms/project.form";
-import {useNavigate} from "react-router-dom";
+import * as queries from '../../graphql/queries';
+import * as mutations from '../../graphql/mutations';
+import * as subscriptions from '../../graphql/subscriptions';
+import {ListProjectsQuery} from "../../API";
+import {useMountEffect} from "../../hooks/useOnMount.hook";
+import {Observable} from 'zen-observable-ts';
 
 
 const ProjectList = () => {
 
-    const [projectList, setProjectList] = useState([{name: 'project-1', description: 'lorem', id:'1'}, {
-        name: 'project-2',
-        description: 'lorem',
-        id:'2'
-    }]);
+    const [projectList, setProjectList] = useState([]);
     const [openProjectForm, setOpenProjectForm] = useState(false);
     let navigate = useNavigate();
 
 
-    const saveProject = (formData: any) => {
-        // console.log('formData: ', formData)
-        setProjectList([...projectList, {...formData, id:Math.floor(Math.random() * 10)}])
+    const saveProject = async (formData: any) => {
+        const newTodo = await API.graphql({query: mutations.createProject, variables: {input: formData}});
+        console.log('newTodo: ', newTodo)
         setOpenProjectForm(false)
     }
+
 
     const handleClickOnRow = (event, row) => {
         console.log(row, event)
         navigate(`project/${row.id}`);
     }
 
+    const fetchProjects = () => {
+        (
+            API.graphql({query: queries.listProjects,  variables:{sortDirection: 'DESC'}}) as Promise<{ data: ListProjectsQuery }>
+        ).then((data: { data: ListProjectsQuery }) => {
+            setProjectList(data.data.listProjects.items)
+        });
+    }
+
+    useMountEffect(() => {
+
+        fetchProjects()
+    })
+
+
+    useEffect(() => {
+
+        const subscription = (API.graphql({
+            query: subscriptions.onCreateProject,
+        }) as Observable<any>).subscribe({
+            next: (payload) => {
+                console.log(payload)
+
+                fetchProjects()
+
+            },
+            error: (error) => console.warn(error),
+        });
+        return () => subscription.unsubscribe();
+    }, []);
+
+
     return <Grid container spacing={gridSpacing}>
 
         <Grid item xs={12}>
-           <h2>Projects</h2>
+            <h2>Projects</h2>
         </Grid>
         <Grid item xs={12}>
             <Button variant="outlined" startIcon={<AddIcon/>} onClick={() => setOpenProjectForm(true)}>

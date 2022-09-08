@@ -2,16 +2,20 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBlogInput = {
+export type CreateProjectInput = {
   id?: string | null,
   name: string,
+  createdAt?: string | null,
+  description?: string | null,
 };
 
-export type ModelBlogConditionInput = {
+export type ModelProjectConditionInput = {
   name?: ModelStringInput | null,
-  and?: Array< ModelBlogConditionInput | null > | null,
-  or?: Array< ModelBlogConditionInput | null > | null,
-  not?: ModelBlogConditionInput | null,
+  createdAt?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelProjectConditionInput | null > | null,
+  or?: Array< ModelProjectConditionInput | null > | null,
+  not?: ModelProjectConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -52,6 +56,101 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type Project = {
+  __typename: "Project",
+  id: string,
+  name: string,
+  createdAt: string,
+  description?: string | null,
+  users?: ModelUserConnection | null,
+  updatedAt: string,
+};
+
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+};
+
+export type User = {
+  __typename: "User",
+  id: string,
+  projectID: string,
+  createdAt: string,
+  first_name?: string | null,
+  last_name?: string | null,
+  updatedAt: string,
+};
+
+export type UpdateProjectInput = {
+  id: string,
+  name?: string | null,
+  createdAt?: string | null,
+  description?: string | null,
+};
+
+export type DeleteProjectInput = {
+  id: string,
+};
+
+export type CreateUserInput = {
+  id?: string | null,
+  projectID: string,
+  createdAt?: string | null,
+  first_name?: string | null,
+  last_name?: string | null,
+};
+
+export type ModelUserConditionInput = {
+  projectID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  first_name?: ModelStringInput | null,
+  last_name?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type UpdateUserInput = {
+  id: string,
+  projectID?: string | null,
+  createdAt?: string | null,
+  first_name?: string | null,
+  last_name?: string | null,
+};
+
+export type DeleteUserInput = {
+  id: string,
+};
+
+export type CreateBlogInput = {
+  id?: string | null,
+  name: string,
+};
+
+export type ModelBlogConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelBlogConditionInput | null > | null,
+  or?: Array< ModelBlogConditionInput | null > | null,
+  not?: ModelBlogConditionInput | null,
 };
 
 export type Blog = {
@@ -119,22 +218,6 @@ export type ModelPostConditionInput = {
   blogPostsId?: ModelIDInput | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdatePostInput = {
   id: string,
   title?: string | null,
@@ -169,6 +252,33 @@ export type DeleteCommentInput = {
   id: string,
 };
 
+export type ModelProjectFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelProjectFilterInput | null > | null,
+  or?: Array< ModelProjectFilterInput | null > | null,
+  not?: ModelProjectFilterInput | null,
+};
+
+export type ModelProjectConnection = {
+  __typename: "ModelProjectConnection",
+  items:  Array<Project | null >,
+  nextToken?: string | null,
+};
+
+export type ModelUserFilterInput = {
+  id?: ModelIDInput | null,
+  projectID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  first_name?: ModelStringInput | null,
+  last_name?: ModelStringInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
+};
+
 export type ModelBlogFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -199,6 +309,160 @@ export type ModelCommentFilterInput = {
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
   postCommentsId?: ModelIDInput | null,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type CreateProjectMutationVariables = {
+  input: CreateProjectInput,
+  condition?: ModelProjectConditionInput | null,
+};
+
+export type CreateProjectMutation = {
+  createProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateProjectMutationVariables = {
+  input: UpdateProjectInput,
+  condition?: ModelProjectConditionInput | null,
+};
+
+export type UpdateProjectMutation = {
+  updateProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteProjectMutationVariables = {
+  input: DeleteProjectInput,
+  condition?: ModelProjectConditionInput | null,
+};
+
+export type DeleteProjectMutation = {
+  deleteProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateUserMutationVariables = {
+  input: CreateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type CreateUserMutation = {
+  createUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateUserMutationVariables = {
+  input: UpdateUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type UpdateUserMutation = {
+  updateUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
+};
+
+export type DeleteUserMutation = {
+  deleteUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
 };
 
 export type CreateBlogMutationVariables = {
@@ -957,6 +1221,106 @@ export type DeleteCommentMutation = {
   } | null,
 };
 
+export type GetProjectQueryVariables = {
+  id: string,
+};
+
+export type GetProjectQuery = {
+  getProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListProjectsQueryVariables = {
+  filter?: ModelProjectFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProjectsQuery = {
+  listProjects?:  {
+    __typename: "ModelProjectConnection",
+    items:  Array< {
+      __typename: "Project",
+      id: string,
+      name: string,
+      createdAt: string,
+      description?: string | null,
+      users?:  {
+        __typename: "ModelUserConnection",
+        items:  Array< {
+          __typename: "User",
+          id: string,
+          projectID: string,
+          createdAt: string,
+          first_name?: string | null,
+          last_name?: string | null,
+          updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserQueryVariables = {
+  id: string,
+};
+
+export type GetUserQuery = {
+  getUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUsersQuery = {
+  listUsers?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      projectID: string,
+      createdAt: string,
+      first_name?: string | null,
+      last_name?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetBlogQueryVariables = {
   id: string,
 };
@@ -1408,6 +1772,139 @@ export type ListCommentsQuery = {
       postCommentsId?: string | null,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type UsersByProjectIdQueryVariables = {
+  projectID: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UsersByProjectIdQuery = {
+  usersByProjectId?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      projectID: string,
+      createdAt: string,
+      first_name?: string | null,
+      last_name?: string | null,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateProjectSubscription = {
+  onCreateProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateProjectSubscription = {
+  onUpdateProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteProjectSubscription = {
+  onDeleteProject?:  {
+    __typename: "Project",
+    id: string,
+    name: string,
+    createdAt: string,
+    description?: string | null,
+    users?:  {
+      __typename: "ModelUserConnection",
+      items:  Array< {
+        __typename: "User",
+        id: string,
+        projectID: string,
+        createdAt: string,
+        first_name?: string | null,
+        last_name?: string | null,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateUserSubscription = {
+  onCreateUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateUserSubscription = {
+  onUpdateUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteUserSubscription = {
+  onDeleteUser?:  {
+    __typename: "User",
+    id: string,
+    projectID: string,
+    createdAt: string,
+    first_name?: string | null,
+    last_name?: string | null,
+    updatedAt: string,
   } | null,
 };
 

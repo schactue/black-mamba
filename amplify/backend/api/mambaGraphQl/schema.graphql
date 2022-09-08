@@ -2,6 +2,27 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
+
+type Project @model {
+  id: ID!
+  name: String!
+  createdAt: String!
+  description: String
+  users: [User] @hasMany(indexName: "projectIndex", fields: ["id"])
+}
+
+
+type User @model {
+ id: ID!
+ projectID: ID! @index(name: "projectIndex", queryField: "usersByProjectId", sortKeyFields: ["createdAt"])
+ createdAt: String!
+ first_name: String
+ last_name: String
+
+}
+
+
+
 type Blog @model {
   id: ID!
   name: String!
