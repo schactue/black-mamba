@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {gridSpacing} from "../../store/constant";
-import {ProjectForm} from "./components/project.form";
+import {ProjectForm} from "./forms/project.form";
 import {useNavigate} from "react-router-dom";
 
 

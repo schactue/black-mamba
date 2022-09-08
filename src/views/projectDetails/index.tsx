@@ -1,5 +1,5 @@
-import React from "react";
-import {Box, Button, Grid} from "@mui/material";
+import React, {useState} from "react";
+import {Button, Grid} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,9 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {gridSpacing} from "../../store/constant";
-import {useState} from "react";
-import {ProjectForm} from "./components/project.form";
-import {UserForm} from "./components/user.form";
+import {UserForm} from "./forms/user.form";
 
 const ProjectDetails = () => {
     const [userList, setUserList] = useState([{first_name: 'max', last_name: 'muster', id: '1'}]);
