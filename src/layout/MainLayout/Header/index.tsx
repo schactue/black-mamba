@@ -6,8 +6,7 @@ import {Avatar, Box, ButtonBase, Typography} from '@mui/material';
 
 // projectList imports
 
-// assets
-import { IconMenu2 } from '@tabler/icons';
+
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
