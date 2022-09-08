@@ -1,11 +1,8 @@
-
-
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import {Avatar, Box, ButtonBase, Typography} from '@mui/material';
 
 // projectList imports
-
 
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
@@ -25,9 +22,9 @@ const Header = () => {
                     }
                 }}
             >
-                <Box component="span" sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
-                    <Typography variant="h6" >
-                        Black Mamba
+                <Box component="span" sx={{display: {xs: 'none', md: 'block'}, flexGrow: 1}}>
+                    <Typography variant="h6">
+                        Black MAMBA
                     </Typography>
                 </Box>
 
@@ -37,8 +34,8 @@ const Header = () => {
 
             <SearchSection />
             */}
-            <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{flexGrow: 1}}/>
+            <Box sx={{flexGrow: 1}}/>
 
             {/* notification & profile
             <NotificationSection />
@@ -47,7 +44,6 @@ const Header = () => {
         </>
     );
 };
-
 
 
 export default Header;
